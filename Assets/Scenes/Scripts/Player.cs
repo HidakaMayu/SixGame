@@ -1,110 +1,110 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using Unity.VisualScripting;
+using System.Drawing;
+using System.Net.Sockets;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody2D _rb = null;
+    Rigidbody _rb = default;
     [SerializeField] float speed = 4.0f;
     float wSpeed;
     [SerializeField]List<GameObject> item = new List<GameObject>();
     [SerializeField]GameObject player = null;
+    [SerializeField] GameObject[] doors = {};
+    //[SerializeField] GameObject dooor = null;
 
+    //鍵がかかってる場所
+    [SerializeField] Text rocked = default;
 
     //ドア音
-    [SerializeField] AudioClip door; 
-    AudioSource audioSource;
+    //[SerializeField] AudioClip dse; 
+    //AudioSource audioSource;
 
     public static bool trigger = false;
     int random;
-    float h;
-    [SerializeField] int stage = 1;
+    float h,v;
+    public static int stage = 1;
     [SerializeField] Text nowRoom;
 
     //フェード
     [SerializeField] public GameObject panel;
+    GameObject door;
     Image fadeImage;
     float fadeSpeed = 0.02f;
     float fade;
-    List<Image> images;
     float time;
 
     void Start()
     {
-        images = new List<Image>();
-        _rb = this.GetComponent<Rigidbody2D>();
+        _rb = this.GetComponent<Rigidbody>();
         fadeImage = panel.GetComponent<Image>();
         fade = fadeImage.color.a;
-        images.Add(GameObject.Find("Image").GetComponent<Image>());
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
 
     }
 
     void Update()
     {
-         h = Input.GetAxis("Horizontal") * speed;
-        _rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, _rb.velocity.y);
-        time = Time.deltaTime;
-        nowRoom.text = $"No.{stage}";
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
+        Vector3 dir = Vector3.forward * v + Vector3.right * h;
+        _rb.velocity = dir.normalized * speed;
+        nowRoom.text = $"room_No.{stage}";
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         //audioSource.PlayOneShot(door);
-        if (collision.gameObject.CompareTag("Door"))　　
+        if (collision.gameObject.CompareTag("Dor"))　　
         {
+            if (stage == 7)
+            {
+                SceneManager.LoadScene("Title");
+            }
+            rocked = default;
             trigger = true; Debug.Log(trigger);
-            audioSource.PlayOneShot(door);
+            //audioSource.PlayOneShot(dse);
             fadeImage.DOFade(endValue: 250f, duration: 1f);
             StartCoroutine(OneCushion());
             fadeImage.DOFade(endValue: 0f, duration: 3f);
             player.SetActive(true);
             speed = wSpeed;
+            door = null;
+        }
+        else if(collision.gameObject.CompareTag("Rocked"))
+        {
+            rocked.text = "鍵がかかっている";
         }
         
     }
-    void NextStage()
-    {/*
-        fade += fadeSpeed;
-        if (fade >= 1)
-        {*/
-        //fadeImage.color = new Color(255, 255, 255, fade);
-        //foreach (Image go in item)
-        //{
-        //    random = Random.Range(0, 10);
-        //    if (random > 6) { go.enabled = true; Debug.Log("true"); }
-        //    else if(random <= 0) { go.enabled = false; Debug.Log("false"); }
-        //    Debug.Log(random);
-        //}
-        //transform.position = new Vector3(-6.5f, -2.52f, -2f);
-        //次の部屋へ移動してから数時増える
-        //this.gameObject.SetActive(false);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //stage++;
-        //Debug.Log("open");//部屋リセット＆もう一つのドアへ（移動がわかるように、ドアの音＆一瞬暗転でその間に家具リセット）
-        //trigger = false;Debug.Log(trigger);
-         /*   fade -= fadeSpeed;
-        }
-         */
-        
-    }
+    //void OnTriggerExit(Collider other)
+    //{
+    //    dooor.SetActive(true);
+    //}
+
     IEnumerator OneCushion()
     {
         Debug.Log(4);
         //fadeImage.color = new Color(0, 0, 0, fade);
         //if (fade >= 255) fade += fadeSpeed;Debug.Log(5);
-        this.transform.position = new Vector3(-7.0f, -2.52f, -2f);
+        int randomd = Random.Range(0, 4);
+        if(door == null)
+        {
+            door = doors[randomd];
+            this.transform.position = door.transform.position - Vector3.down;
+        }
         wSpeed = speed;
         speed = 0;
+        //dooor.SetActive(false);
         player.SetActive(false);
         foreach (GameObject go in item)
         {
-            random = Random.Range(0, 10);
-            if (random > 6) { go.SetActive(true); Debug.Log("true"); }
+            int random = Random.Range(0, 10);
+            if (random > 6 && Item.get == false) { go.SetActive(true); Debug.Log("true"); }
             else if (random <= 0) { go.SetActive(false); Debug.Log("false"); }
             Debug.Log(random);
         }
