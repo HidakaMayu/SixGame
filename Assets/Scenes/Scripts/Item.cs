@@ -17,7 +17,6 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        //2Dと3Dで交わらない。ビックリマークが表示されない
         exclamation.enabled = false;
     }
 
@@ -47,6 +46,4 @@ public class Item : MonoBehaviour
         text.text = " ";
     }
     // Update is called once per frame
-    //プレイヤータグのオブジェクトが範囲内に入ったときビックリマークをtrueに
-    //離れたらfalseに
 }
