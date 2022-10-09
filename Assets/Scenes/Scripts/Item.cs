@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
     bool lookAway = false;
     [SerializeField] Text text;
     public static bool get = false;
-    [SerializeField] GameObject exclamation = null; //ビックリマーク
+    [SerializeField] Renderer exclamation = null; //ビックリマーク
     [SerializeField] GameObject player = null;
 
     public KeyCode Y { get; private set; }
@@ -18,26 +18,12 @@ public class Item : MonoBehaviour
     private void Start()
     {
         //2Dと3Dで交わらない。ビックリマークが表示されない
-    }
-    void Update()
-    {
-        Transform position = this.transform;
-        Vector3 pos = position.position;
-        Transform plPosition = player.transform;
-        Vector3 pPos = plPosition.position;
-        if (pPos.x - pos.x >= 3 && pPos.x - pos.x <= -3)
-        {
-            exclamation.SetActive(true); 
-            Debug.Log(85);
-        }
-        else
-        {
-            exclamation.SetActive(false);
-        }
+        exclamation.enabled = false;
     }
 
     void OnTriggerEnter(Collider other)
     {
+        exclamation.enabled = true;
         Debug.Log(1);
         text.text = $"{this.name}だ。拾いますか？\nYes(Y)  No(N)";
         if(Input.GetKeyDown(Y))
@@ -49,6 +35,8 @@ public class Item : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
+        exclamation.enabled = false;
+        text.text = " ";
         if (other.tag == "Player")
         {
             Invoke(nameof(stopText), 2.5f);
