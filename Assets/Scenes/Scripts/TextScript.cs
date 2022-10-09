@@ -9,7 +9,7 @@ public class TextScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //player‚Ì‰ï˜b•¶‚ğ®”õ
     }
 
     // Update is called once per frame

@@ -9,15 +9,34 @@ public class Item : MonoBehaviour
     bool lookAway = false;
     [SerializeField] Text text;
     public static bool get = false;
+    [SerializeField] GameObject exclamation = null; //ビックリマーク
+    [SerializeField] GameObject player = null;
 
     public KeyCode Y { get; private set; }
 
     // Start is called before the first frame update
     private void Start()
     {
+        //2Dと3Dで交わらない。ビックリマークが表示されない
+    }
+    void Update()
+    {
+        Transform position = this.transform;
+        Vector3 pos = position.position;
+        Transform plPosition = player.transform;
+        Vector3 pPos = plPosition.position;
+        if (pPos.x - pos.x >= 3 && pPos.x - pos.x <= -3)
+        {
+            exclamation.SetActive(true); 
+            Debug.Log(85);
+        }
+        else
+        {
+            exclamation.SetActive(false);
+        }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
         Debug.Log(1);
         text.text = $"{this.name}だ。拾いますか？\nYes(Y)  No(N)";
@@ -28,7 +47,7 @@ public class Item : MonoBehaviour
             get = true;
         }
     }
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -40,4 +59,6 @@ public class Item : MonoBehaviour
         text.text = " ";
     }
     // Update is called once per frame
+    //プレイヤータグのオブジェクトが範囲内に入ったときビックリマークをtrueに
+    //離れたらfalseに
 }

@@ -81,16 +81,10 @@ public class Player : MonoBehaviour
         }
         
     }
-    //void OnTriggerExit(Collider other)
-    //{
-    //    dooor.SetActive(true);
-    //}
 
     IEnumerator OneCushion()
     {
         Debug.Log(4);
-        //fadeImage.color = new Color(0, 0, 0, fade);
-        //if (fade >= 255) fade += fadeSpeed;Debug.Log(5);
         int randomd = Random.Range(0, 4);
         if(door == null)
         {
@@ -112,6 +106,6 @@ public class Player : MonoBehaviour
         Debug.Log("open");//部屋リセット＆もう一つのドアへ（移動がわかるように、ドアの音＆一瞬暗転でその間に家具リセット）
         trigger = false; Debug.Log(trigger);
         yield return new WaitForSeconds(5.0f);Debug.Log(6);
-        //if (fade <= 1) fade -= fadeSpeed; fadeImage.color = new Color(255, 255, 255, fade);
     }
+
 }
