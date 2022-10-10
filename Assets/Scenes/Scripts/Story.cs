@@ -5,9 +5,9 @@ public class Story : MonoBehaviour
     bool a = false;
     bool b = false;
     bool c = false;
-    int rootA = 0;
-    int rootB = 0;
-    int rootC = 0;
+    public static int rootA = 0;
+    public static int rootB = 0;
+    public static int rootC = 0;
 
     void Update()
     {
