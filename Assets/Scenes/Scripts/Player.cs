@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField]List<GameObject> item = new List<GameObject>();
     [SerializeField]GameObject player = null;
     [SerializeField] GameObject[] doors = {};
-    //[SerializeField] GameObject dooor = null;
+    public static bool hidden = false;
 
     //Œ®‚ª‚©‚©‚Á‚Ä‚éêŠ
     [SerializeField] Text rocked = default;
