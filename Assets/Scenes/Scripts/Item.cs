@@ -24,6 +24,8 @@ public class Item : MonoBehaviour
     {
         exclamation.enabled = true;
         Debug.Log(1);
+        Player.hidden = true;
+        Debug.Log(Player.hidden);
         text.text = $"{this.name}ÇæÅBèEÇ¢Ç‹Ç∑Ç©ÅH\nYes(Y)  No(N)";
         if(Input.GetKeyDown(Y))
         {
@@ -36,6 +38,8 @@ public class Item : MonoBehaviour
     {
         exclamation.enabled = false;
         text.text = " ";
+        Player.hidden = false;
+        Debug.Log(Player.hidden);
         if (other.tag == "Player")
         {
             Invoke(nameof(stopText), 2.5f);

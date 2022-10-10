@@ -16,7 +16,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(nMesh.pathStatus != NavMeshPathStatus.PathInvalidÅ@&& Player.hidden == true)
+        if(Player.hidden == true)
+        {
+            nMesh.SetDestination(this.transform.position);
+        }
+        else if(nMesh.pathStatus != NavMeshPathStatus.PathInvalidÅ@&& Player.hidden == false)
         {
             nMesh.SetDestination(target.transform.position);
         }
