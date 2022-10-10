@@ -18,6 +18,8 @@ public class Story : MonoBehaviour
             if(rootA == 5)
             {
                 //ルートAに
+                //ルートの値がたまることで発生するギミックなどもある
+                //if(rootA <= 5) Gimmick.needle = true; Needle関数を呼び出す
             }
         }
         else if(b == true)

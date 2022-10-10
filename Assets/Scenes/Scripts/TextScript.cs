@@ -7,41 +7,30 @@ using UnityEngine.UI;
 public class TextScript : MonoBehaviour
 {
     [SerializeField] Text text;
-    Days day = Days.Eight;
-    public Days Days
-    {
-        get => day;
-        set
-        {
-            Debug.Log(35);
-            value = (Days)Player.stage;
-            Days = value;
-            OnCellStateChanged();
-        }
-    }
     void Start()
     {
-        OnCellStateChanged();
         //playerの会話文を整備
         Debug.Log(12);
     }
     private void Update()
     {
-        day = (Days)Player.stage;
-    }
+        switch(Player.stage)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3: 
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                text.text = $"{Player.stage}回目のループです。";
+            break;
+                
 
-    private void OnCellStateChanged()
-    {
-        text.text = day.ToString();
+        }
     }
-}
-public enum Days{
-    One = 1,
-    Two = 2,
-    Three = 3,
-    Four = 4,
-    Five = 5,
-    Six = 6,
-    Seven = 7,
-    Eight = 8,
 }
