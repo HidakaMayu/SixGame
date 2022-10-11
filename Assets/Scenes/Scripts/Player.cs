@@ -12,12 +12,14 @@ using static UnityEngine.Rendering.DebugUI;
 public class Player : MonoBehaviour
 {
     Rigidbody _rb = default;
-    [SerializeField] float speed = 4.0f;
+    public static float speed = 4.0f;
     float wSpeed;
     [SerializeField]List<GameObject> item = new List<GameObject>();
     [SerializeField]GameObject player = null;
     [SerializeField] GameObject[] doors = {};
     public static bool hidden = false;
+    float pSpeed = 0f;
+    bool pause = false;
 
     //åÆÇ™Ç©Ç©Ç¡ÇƒÇÈèÍèä
     [SerializeField] Text rocked = default;
@@ -56,6 +58,21 @@ public class Player : MonoBehaviour
         Vector3 dir = Vector3.forward * v + Vector3.right * h;
         _rb.velocity = dir.normalized * speed;
         nowRoom.text = $"room_No.{stage}";
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pause = true;
+            Debug.Log("Pause");
+            hidden = true;
+            pSpeed = speed;
+            speed = 0f;
+        }
+        else if(pause == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("UnPause");
+            hidden = false;
+            speed = pSpeed;
+            pause = false;
+        }
     }
     private void OnTriggerEnter(Collider collision)
     {
@@ -79,6 +96,10 @@ public class Player : MonoBehaviour
         else if(collision.gameObject.CompareTag("Rocked"))
         {
             rocked.text = "åÆÇ™Ç©Ç©Ç¡ÇƒÇ¢ÇÈ";
+        }
+        else if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("OUCH!!");
         }
         
     }
