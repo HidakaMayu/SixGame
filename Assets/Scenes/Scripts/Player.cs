@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public static bool hidden = false;
     float pSpeed = 0f;
     bool pause = false;
+    [SerializeField] GameObject pPanel = null;
 
     //Œ®‚ª‚©‚©‚Á‚Ä‚éêŠ
     [SerializeField] Text rocked = default;
@@ -44,6 +45,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        pPanel.SetActive(false);
         _rb = this.GetComponent<Rigidbody>();
         fadeImage = panel.GetComponent<Image>();
         fade = fadeImage.color.a;
@@ -65,10 +67,12 @@ public class Player : MonoBehaviour
             hidden = true;
             pSpeed = speed;
             speed = 0f;
+            pPanel.SetActive(true);
         }
         else if(pause == true && Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("UnPause");
+            pPanel.SetActive(false);
             hidden = false;
             speed = pSpeed;
             pause = false;
