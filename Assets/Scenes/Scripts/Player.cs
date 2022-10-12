@@ -4,10 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-using Unity.VisualScripting;
-using System.Drawing;
-using System.Net.Sockets;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Player : MonoBehaviour
 {
@@ -29,7 +25,6 @@ public class Player : MonoBehaviour
     //[SerializeField] AudioClip dse; 
     //AudioSource audioSource;
 
-    public static bool trigger = false;
     int random;
     float h,v;
     public static int stage = 1;
@@ -50,7 +45,7 @@ public class Player : MonoBehaviour
         fadeImage = panel.GetComponent<Image>();
         fade = fadeImage.color.a;
         //audioSource = GetComponent<AudioSource>();
-
+        panel.SetActive(false);
     }
 
     void Update()
@@ -81,21 +76,15 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         //audioSource.PlayOneShot(door);
-        if (collision.gameObject.CompareTag("Dor"))　　
+        if (collision.gameObject.CompareTag("Dor") && hidden == false)　　
         {
             if (stage == 7)
             {
                 SceneManager.LoadScene("Title");
             }
             rocked = default;
-            trigger = true; Debug.Log(trigger);
             //audioSource.PlayOneShot(dse);
-            fadeImage.DOFade(endValue: 250f, duration: 1f);
             StartCoroutine(OneCushion());
-            fadeImage.DOFade(endValue: 0f, duration: 3f);
-            player.SetActive(true);
-            speed = wSpeed;
-            door = null;
         }
         else if(collision.gameObject.CompareTag("Rocked"))
         {
@@ -104,23 +93,23 @@ public class Player : MonoBehaviour
         else if(collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("OUCH!!");
+            stage = -1;
+            door = doors[1];
+            StartCoroutine(OneCushion());
         }
-        
     }
 
     IEnumerator OneCushion()
     {
+        panel.SetActive(true);
+        fadeImage.DOFade(endValue: 250f, duration: 5f);
         Debug.Log(4);
         int randomd = Random.Range(0, 4);
-        if(door == null)
-        {
-            door = doors[randomd];
-            this.transform.position = door.transform.position - Vector3.down;
-        }
+        if(door == null)door = doors[randomd];
+        this.transform.position = door.transform.position - Vector3.down;
         wSpeed = speed;
-        speed = 0;
-        //dooor.SetActive(false);
-        player.SetActive(false);
+        speed = 0; 
+        hidden = true;
         foreach (GameObject go in item)
         {
             int random = Random.Range(0, 10);
@@ -130,8 +119,10 @@ public class Player : MonoBehaviour
         }
         stage++;
         Debug.Log("open");//部屋リセット＆もう一つのドアへ（移動がわかるように、ドアの音＆一瞬暗転でその間に家具リセット）
-        trigger = false; Debug.Log(trigger);
-        yield return new WaitForSeconds(5.0f);Debug.Log(6);
+        fadeImage.DOFade(endValue: 0f, duration: 2f);
+        yield return new WaitForSeconds(2.0f);Debug.Log(6);
+        speed = wSpeed;
+        door = null;
+        panel.SetActive(false);
     }
-
 }

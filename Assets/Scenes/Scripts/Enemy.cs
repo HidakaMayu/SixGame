@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] GameObject target = null;
     NavMeshAgent nMesh;
-    // Start is called before the first frame update
     void Start()
     {
         nMesh = GetComponent<NavMeshAgent>();

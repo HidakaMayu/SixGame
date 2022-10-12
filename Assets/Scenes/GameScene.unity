@@ -687,8 +687,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485421473}
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 12.57, y: -0.17, z: 4.397}
-  m_LocalScale: {x: 0.07941382, y: 6.3874364, z: 2.2328982}
+  m_LocalPosition: {x: 12.57, y: -0.17, z: 4.584}
+  m_LocalScale: {x: 0.2644639, y: 6.3874364, z: 3.915387}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1271582199}
@@ -1204,8 +1204,8 @@ GameObject:
   - component: {fileID: 792469011}
   - component: {fileID: 792469010}
   m_Layer: 0
-  m_Name: Door (2)
-  m_TagString: Door
+  m_Name: WarPoint3
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1565,8 +1565,8 @@ GameObject:
   - component: {fileID: 1106626205}
   - component: {fileID: 1106626204}
   m_Layer: 0
-  m_Name: Door (1)
-  m_TagString: Door
+  m_Name: WarPoint2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1804,8 +1804,8 @@ GameObject:
   - component: {fileID: 1164832355}
   - component: {fileID: 1164832354}
   m_Layer: 0
-  m_Name: Door (3)
-  m_TagString: Door
+  m_Name: WarPoint4
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1849,8 +1849,8 @@ GameObject:
   - component: {fileID: 1174449294}
   - component: {fileID: 1174449293}
   m_Layer: 0
-  m_Name: Door (4)
-  m_TagString: Door
+  m_Name: WarPoint1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2940,7 +2940,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28024
+  m_Name: pb_Mesh28026
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7452,7 +7452,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &2114870155
 BoxCollider:
@@ -7462,7 +7462,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114870153}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
